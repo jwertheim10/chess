@@ -1,0 +1,12 @@
+{% load custom_filters %}
+
+<h1>{{ user_profile_data.name }}'s Chess Profile</h1>
+<p>Username: {{ user_profile_data.username }}</p>
+<p>Joined: {{ data.joined|unix_to_date }}</p>
+<p>Last active: {{ data.last_online|unix_to_date }}</p>
+<p>Blitz:</p>
+High Score: {{ user_stats_data.chess_blitz }}
+
+<br><br>
+{{ user_profile_data }} <br><br>
+{{ user_stats_data }}
