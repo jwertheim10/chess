@@ -4,9 +4,36 @@
 <p>Username: {{ user_profile_data.username }}</p>
 <p>Joined: {{ user_profile_data.joined|unix_to_date }}</p>
 <p>Last active: {{ user_profile_data.last_online|unix_to_date }}</p>
-<p>Blitz:</p>
-High Score: {{ user_stats_data.chess_blitz }}
+<p>
+    Blitz:
+    Current Rating: {{ user_stats_data.chess_blitz.last.rating }} &ensp; Date: {{ user_stats_data.chess_blitz.last.date|unix_to_date }} &emsp;
+    Highest Rating: {{ user_stats_data.chess_blitz.best.rating }}  &ensp; Date: {{ user_stats_data.chess_blitz.best.date|unix_to_date }} <br>
+    All time record:  <br>
+    Wins: {{ user_stats_data.chess_blitz.record.win }} &emsp; Losses: {{ user_stats_data.chess_blitz.record.loss }} &emsp; Draws: {{ user_stats_data.chess_blitz.record.draw }}
+</p>
+<p>
+    Rapid:
+    Current Rating: {{ user_stats_data.chess_rapid.last.rating }} &ensp; Date: {{ user_stats_data.chess_rapid.last.date|unix_to_date }} &emsp;
+    Highest Rating: {{ user_stats_data.chess_rapid.best.rating }}  &ensp; Date: {{ user_stats_data.chess_rapid.best.date|unix_to_date }} <br>
+    All time record:  <br>
+    Wins: {{ user_stats_data.chess_rapid.record.win }} &emsp; Losses: {{ user_stats_data.chess_rapid.record.loss }} &emsp; Draws: {{ user_stats_data.chess_rapid.record.draw }}
+</p>
+<p>
+    Daily:
+    Current Rating: {{ user_stats_data.chess_daily.last.rating }} &ensp; Date: {{ user_stats_data.chess_daily.last.date|unix_to_date }} &emsp;
+    Highest Rating: {{ user_stats_data.chess_daily.best.rating }}  &ensp; Date: {{ user_stats_data.chess_daily.best.date|unix_to_date }} <br>
+    All time record:  <br>
+    Wins: {{ user_stats_data.chess_daily.record.win }} &emsp; Losses: {{ user_stats_data.chess_daily.record.loss }} &emsp; Draws: {{ user_stats_data.chess_daily.record.draw }}
+</p>
+
+<p>
+    Bullet:
+    Current Rating: {{ user_stats_data.chess_bullet.last.rating }} &ensp; Date: {{ user_stats_data.chess_bullet.last.date|unix_to_date }} &emsp;
+    Highest Rating: {{ user_stats_data.chess_bullet.best.rating }}  &ensp; Date: {{ user_stats_data.chess_bullet.best.date|unix_to_date }} <br>
+    All time record:  <br>
+    Wins: {{ user_stats_data.chess_bullet.record.win }} &emsp; Losses: {{ user_stats_data.chess_bullet.record.loss }} &emsp; Draws: {{ user_stats_data.chess_bullet.record.draw }}
+</p>
+
 
 <br><br>
-{{ user_profile_data }} <br><br>
 {{ user_stats_data }}
