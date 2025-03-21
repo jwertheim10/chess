@@ -5,19 +5,15 @@
 <p>Joined: {{ user_profile_data.joined|unix_to_date }}</p>
 <p>Last active: {{ user_profile_data.last_online|unix_to_date }}</p>
 
-{% with chess_types=['blitz', 'rapid', 'daily', 'bullet'] %}
-    {% for chess_type in chess_types %}
-    <p>
-        {{ chess_type|capfirst }}:
-        Current Rating: {{ user_stats_data['chess_' + chess_type].last.rating }} &ensp; Date: {{ user_stats_data['chess_' + chess_type].last.date | unix_to_date }} &emsp;
-        Highest Rating: {{ user_stats_data['chess_' + chess_type].best.rating }} &ensp; Date: {{ user_stats_data['chess_' + chess_type].best.date | unix_to_date }} <br>
-        All time record: <br>
-        Wins: {{ user_stats_data['chess_' + chess_type].record.win }} &emsp; Losses: {{ user_stats_data['chess_' + chess_type].record.loss }} &emsp; Draws: {{ user_stats_data['chess_' + chess_type].record.draw }}
-    </p>
-    {% endfor %}
-{% endwith %}
-
-
+{% for stat in chess_stats %}
+<p>
+    {{ stat.type }}:
+    Current Rating: {{ stat.current_rating }} &ensp; Date: {{ stat.current_date|unix_to_date }} &emsp;
+    Highest Rating: {{ stat.best_rating }} &ensp; Date: {{ stat.best_date|unix_to_date }} <br>
+    All time record: <br>
+    Wins: {{ stat.wins }} &emsp; Losses: {{ stat.losses }} &emsp; Draws: {{ stat.draws }}
+</p>
+{% endfor %}
 
 <br><br>
-{{ user_stats_data }}
+{{ raw_stats_data }}
