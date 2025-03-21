@@ -11,7 +11,7 @@
     Current Rating: {{ stat.current_rating }} &ensp; Date: {{ stat.current_date|unix_to_date }} &emsp;
     Highest Rating: {{ stat.best_rating }} &ensp; Date: {{ stat.best_date|unix_to_date }} <br>
     All time record: <br>
-    Wins: {{ stat.wins }} &emsp; Losses: {{ stat.losses }} &emsp; Draws: {{ stat.draws }}
+    Wins: {{ stat.wins }} {{ stat.win_rate }}% &emsp; Losses: {{ stat.losses }} {{ stat.loss_rate }}% &emsp; Draws: {{ stat.draws }} {{ stat.draw_rate }}%
 </p>
 {% endfor %}
 
