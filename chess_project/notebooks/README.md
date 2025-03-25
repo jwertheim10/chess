@@ -1,1 +1,0 @@
-This folder is used to house my jupyter notebooks for the chess project
