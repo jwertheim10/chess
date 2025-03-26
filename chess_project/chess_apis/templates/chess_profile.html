@@ -20,3 +20,8 @@
 <h2>Rating Chart</h2>
 <img src="data:image/png;base64,{{ rating_chart_over_time }}" alt="Rating Chart">
 {% endif %}
+
+{% if openings_win_loss_chart %}
+<h2>Wins Chart</h2>
+<img src="data:image/png;base64,{{ openings_win_loss_chart }}" alt="Openings Chart">
+{% endif %}

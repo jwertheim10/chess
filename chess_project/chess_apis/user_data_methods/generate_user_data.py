@@ -1,5 +1,3 @@
-
-
 def main(chess_types, user_stats_data, chess_stats):
     for chess_type in chess_types:
         key = f'chess_{chess_type}'
