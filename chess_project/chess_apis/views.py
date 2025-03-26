@@ -5,6 +5,9 @@ from django.shortcuts import HttpResponse, render
 from django.http import JsonResponse
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
+import base64
+import io
 
 # Create your views here.
 def index(request):
@@ -106,9 +109,28 @@ def create_rating_chart_over_time(user_games_data, username, chess_types):
 
     print(rating_scores)
     df = pd.DataFrame([
-    {'Chess Type': type_of_chess, 'Rating': rating} 
-    for type_of_chess, ratings in rating_scores.items() 
-    for rating in ratings
-])
+        {'Chess Type': type_of_chess, 'Game Number': i, 'Rating': rating} 
+        for type_of_chess, ratings in rating_scores.items() 
+        for i, rating in enumerate(ratings)
+    ])
+
+
     print(df)
-    return rating_scores
+
+    # Create the plot with explicit figure and axes
+    plt.figure(figsize=(10, 6))
+    sns.lineplot(data=df, x='Game Number', y='Rating', hue='Chess Type')
+    
+    # Save to a bytes buffer
+    plot_file = io.BytesIO()
+    plt.savefig(plot_file, format='png')
+    plt.close()  # Close the plot to free up memory
+    
+    plot_file.seek(0)
+    encoded_file = base64.b64encode(plot_file.read()).decode('utf-8')
+    
+    return encoded_file
+
+
+    
+
