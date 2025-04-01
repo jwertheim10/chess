@@ -126,3 +126,7 @@ def create_openings_win_loss(user_games_data, username):
     encoded_file = base64.b64encode(plot_file.read()).decode('utf-8')
     
     return encoded_file
+
+
+def create_days_win_loss(user_games_data, username):
+    return user_games_data

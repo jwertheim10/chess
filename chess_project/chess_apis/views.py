@@ -64,8 +64,10 @@ def index(request):
     generate_user_data.main(chess_types, user_stats_data, chess_stats)
     rating_chart_over_time = generate_graphs.create_rating_chart_over_time(user_games_data, username, chess_types)
     openings_win_loss_chart = generate_graphs.create_openings_win_loss(user_games_data, username)
+    wins_by_day_chart = generate_graphs.create_days_win_loss(user_games_data, username)
 
     context = {
+        'wins_by_day_chart': wins_by_day_chart,
         'rating_chart_over_time': rating_chart_over_time,
         'openings_win_loss_chart': openings_win_loss_chart,
         'user_profile_data': user_profile_data,

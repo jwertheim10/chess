@@ -25,3 +25,9 @@
 <h2>Wins Chart</h2>
 <img src="data:image/png;base64,{{ openings_win_loss_chart }}" alt="Openings Chart">
 {% endif %}
+
+{% if wins_by_day_chart %}
+<h2>Days Chart</h2>
+{% comment %} <img src="data:image/png;base64,{{ wins_by_day_chart }}" alt="Days Chart"> {% endcomment %}
+{{ wins_by_day_chart }}
+{% endif %}
