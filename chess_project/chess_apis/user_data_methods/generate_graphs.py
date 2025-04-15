@@ -6,7 +6,7 @@ import pandas as pd
 import seaborn as sns
 import base64
 import io
-from datetime import datetime
+from datetime import datetime, date
 
 
 
@@ -44,8 +44,9 @@ def create_openings_win_loss(user_games_data, username):
     openings_played = {}
     for game in data:
         url = game['eco']
-        result = re.search(r'/([^/]+)$', url)
-        chess_opening = result[1].replace('-', ' ')
+        chess_opening = re.search(r'/([^/]+)$', url)
+        chess_opening = chess_opening[1].replace('-', ' ')
+        result = ''
         piece_color = 'white'
         if game['black']['username'] == username:
             piece_color = 'black'
@@ -129,4 +130,42 @@ def create_openings_win_loss(user_games_data, username):
 
 
 def create_days_win_loss(user_games_data, username):
-    return user_games_data
+    data = user_games_data['games']
+    days_played = {}
+    for game in data:
+        result = ''
+        piece_color = 'white'
+        if game['black']['username'] == username:
+            piece_color = 'black'
+        if game[piece_color]['result'] == '1/2-1/2':
+            result = 'drawn'
+        elif game[piece_color]['result'] == 'win':
+            result = 'won'
+        else:
+            result = 'lost'
+        date_time_of_game = datetime.fromtimestamp(game['end_time'])
+        day_of_week = date_time_of_game.weekday()
+        day_names = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        day = day_names[day_of_week]
+        if day not in days_played:
+            days_played[day] = {
+                'times_played': 0,
+                'total_won': 0,
+                'total_drawn': 0,
+                'total_lost': 0,
+                'times_played_white': 0,
+                'times_played_black': 0,
+                'times_won_white': 0,
+                'times_won_black': 0,
+                'times_lost_white': 0,
+                'times_lost_black': 0,
+                'times_drawn_white': 0,
+                'times_drawn_black': 0,
+                'last_played_at': None
+            }
+            days_played[day]['times_played'] +=1
+            days_played[day]['last_played_at'] = datetime.fromtimestamp(game['end_time']).strftime('%B %d, %Y at %I:%M %p')
+            days_played[day][f'times_played_{piece_color}'] +=1
+            days_played[day][f'times_{result}_{piece_color}'] +=1
+            days_played[day][f'total_{result}'] +=1
+    return days_played
