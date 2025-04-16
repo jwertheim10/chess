@@ -163,9 +163,50 @@ def create_days_win_loss(user_games_data, username):
                 'times_drawn_black': 0,
                 'last_played_at': None
             }
-            days_played[day]['times_played'] +=1
-            days_played[day]['last_played_at'] = datetime.fromtimestamp(game['end_time']).strftime('%B %d, %Y at %I:%M %p')
-            days_played[day][f'times_played_{piece_color}'] +=1
-            days_played[day][f'times_{result}_{piece_color}'] +=1
-            days_played[day][f'total_{result}'] +=1
-    return days_played
+        days_played[day]['times_played'] +=1
+        days_played[day]['last_played_at'] = datetime.fromtimestamp(game['end_time']).strftime('%B %d, %Y at %I:%M %p')
+        days_played[day][f'times_played_{piece_color}'] +=1
+        days_played[day][f'times_{result}_{piece_color}'] +=1
+        days_played[day][f'total_{result}'] +=1
+
+    rows = []
+    for day, stats in days_played.items():
+        row = {
+            'Day': day,
+            'Times Played': stats['times_played'],
+            'Total Won': stats['total_won'],
+            'Total Drawn': stats['total_drawn'],
+            'Total Lost': stats['total_lost'],
+            'Times Played White': stats['times_played_white'],
+            'Times Played Black': stats['times_played_black'],
+            'Times Won White': stats['times_won_white'],
+            'Times Won Black': stats['times_won_black'],
+            'Times Lost White': stats['times_lost_white'],
+            'Times Lost Black': stats['times_lost_black'],
+            'Times Drawn White': stats['times_drawn_white'],
+            'Times Drawn Black': stats['times_drawn_black'],
+            'Last Played At': stats['last_played_at'],
+        }
+        rows.append(row)
+    df = pd.DataFrame(rows)
+    plt.figure(figsize=(10, 6))
+    bar_width = 0.25
+    index = range(len(df))
+    plt.bar([i - bar_width for i in index], df['Total Won'], bar_width, label='Total Won', color='#00A36C')
+    plt.bar([i - bar_width for i in index], df['Total Lost'], bar_width, bottom=df['Total Won'], label='Total Lost', color='#EC5800')
+    plt.bar([i - bar_width for i in index], df['Total Drawn'], bar_width, bottom=df['Total Won']+df['Total Lost'], label='Total Drawn', color='#F4C430')
+    plt.title('Chess Openings: Wins, Losses, and Draws by Day of Week')
+    plt.xlabel('Day')
+    plt.ylabel('Number of Games')
+    plt.xticks([i - bar_width/2 for i in index], df['Day'], rotation=45, ha='right')
+    plt.gca().yaxis.set_major_locator(plt.MaxNLocator(integer=True))
+    plt.legend(loc='upper right')
+    plt.tight_layout()
+
+    plot_file = io.BytesIO()
+    plt.savefig(plot_file, format='png')
+    plt.close()
+    
+    plot_file.seek(0)
+    encoded_file = base64.b64encode(plot_file.read()).decode('utf-8')
+    return encoded_file
