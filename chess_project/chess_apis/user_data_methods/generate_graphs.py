@@ -195,7 +195,7 @@ def create_days_win_loss(user_games_data, username):
     plt.bar([i - bar_width for i in index], df['Total Won'], bar_width, label='Total Won', color='#00A36C')
     plt.bar([i - bar_width for i in index], df['Total Lost'], bar_width, bottom=df['Total Won'], label='Total Lost', color='#EC5800')
     plt.bar([i - bar_width for i in index], df['Total Drawn'], bar_width, bottom=df['Total Won']+df['Total Lost'], label='Total Drawn', color='#F4C430')
-    plt.title('Chess Openings: Wins, Losses, and Draws by Day of Week')
+    plt.title('Wins, Losses, and Draws by Day of Week')
     plt.xlabel('Day')
     plt.ylabel('Number of Games')
     plt.xticks([i - bar_width/2 for i in index], df['Day'], rotation=45, ha='right')
