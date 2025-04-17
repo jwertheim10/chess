@@ -9,7 +9,7 @@ The first few steps in this project are the following:
     Interesting charts to create:
     1. Rating over time (broken out by type) [x]
     2. Wins and losses and draws by opening (can change which type with dropdown?) [x] created a low level version that can/should be improved eventually
-    3. Wins and losses and draws by day of week (can change which type with dropdown?)
+    3. Wins and losses and draws by day of week (can change which type with dropdown?) [x] complete with no dropdown for now
     4. Wins and losses and draws by time of day (can change which type with dropdown?)
 
 
