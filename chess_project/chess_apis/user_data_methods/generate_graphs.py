@@ -100,7 +100,7 @@ def create_openings_win_loss(user_games_data, username):
     min_games = 2
     df_filtered = df[df['Times Played'] >= min_games]
 
-    plt.figure(figsize=(16, 8))
+    plt.figure(figsize=(10, 6))
     bar_width = 0.25
     index = range(len(df_filtered))
     # White game outcomes
