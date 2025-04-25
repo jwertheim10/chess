@@ -98,3 +98,7 @@ webencodings==0.5.1
 websocket-client==1.8.0
 widgetsnbextension==4.0.13
 zipp==3.21.0
+scikit-learn==1.4.2
+joblib==1.4.0
+pandas==2.2.1
+numpy==1.26.4
