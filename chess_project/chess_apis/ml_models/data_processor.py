@@ -48,6 +48,7 @@ def extract_features_from_games(games_data, username):
     
 def prepare_features_for_models(df):
     df_encoded = pd.get_dummies(df, columns=['time_class', 'opening'])
+    df_encoded = df_encoded[df_encoded.result != 0.5]
 
     # We do this to ensure times (and dates) that are next to each other look next to each other in the model
     # If we don't do this, 11 PM (23:00) and midnight (00:00) look very far away
