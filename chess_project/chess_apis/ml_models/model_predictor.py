@@ -16,3 +16,25 @@ def load_win_prediction_model(username, model_dir = 'chess_apis/ml_models/saved_
     
     return model, feature_names
 
+def predict_win_probability(username, game_features, model_dir='chess_apis/ml_models/saved_models'):
+        model, feature_names = load_win_prediction_model(username, model_dir)
+        if model is None:
+             return None
+        
+        df = pd.DataFrame([game_features])
+        df_processed = prepare_features_for_model(df)
+
+        missing_cols = set(feature_names) - set(df_processed.columns)
+        for col in missing_cols:
+             df_processed[col] = 0
+
+        df_processed = df_processed[feature_names]
+
+        if hasattr(model, 'predict_proba'):
+             probability = model.predict_proba(df_processed)[0][1]
+        else:
+             model.predict(df_processed)[0]
+        
+        return probability
+
+

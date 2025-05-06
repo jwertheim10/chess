@@ -1,0 +1,83 @@
+{% load custom_filters %}
+
+<h1>{{ username }}'s Chess ML Insights</h1>
+
+<div class="ml-sections">
+    {% if opening_chart %}
+    <div class="ml-section">
+        <h2>Opening Recommendations</h2>
+        <p>Based on your game history, here are the openings where you have the highest win rates:</p>
+        <img src="data:image/png;base64,{{ opening_chart }}" alt="Opening Recommendations">
+        <p class="insight-tip">Strategy Tip: Focus on playing the openings where you have higher win rates, especially in competitive matches.</p>
+    </div>
+    {% endif %}
+
+    {% if time_chart %}
+    <div class="ml-section">
+        <h2>Optimal Play Times</h2>
+        <p>Our analysis shows your performance varies by time of day and day of week:</p>
+        <img src="data:image/png;base64,{{ time_chart }}" alt="Optimal Play Times">
+        <p class="insight-tip">Strategy Tip: Consider scheduling important matches during your peak performance times.</p>
+    </div>
+    {% endif %}
+
+    {% if win_probability is not None %}
+    <div class="ml-section">
+        <h2>Win Probability Calculator</h2>
+        <p>For a sample game with equal ratings (1200) playing blitz as white:</p>
+        <div class="probability-gauge">
+            <div class="probability-value">{{ win_probability|floatformat:1 }}%</div>
+            <div class="probability-bar" style="width: {{ win_probability }}%"></div>
+        </div>
+        <p class="insight-tip">This is just a sample prediction. We can analyze specific matchups based on your actual games.</p>
+    </div>
+    {% endif %}
+    
+    <div class="ml-section">
+        <h2>Future Development</h2>
+        <p>Coming soon:</p>
+        <ul>
+            <li>Personalized training recommendations</li>
+            <li>Opponent style analysis</li>
+            <li>Game outcome prediction based on opening moves</li>
+        </ul>
+    </div>
+</div>
+
+{% comment %} <style>
+    .ml-sections {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .ml-section {
+        background-color: #f5f5f5;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .insight-tip {
+        color: #0066cc;
+        font-style: italic;
+    }
+    .probability-gauge {
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        height: 30px;
+        position: relative;
+        margin: 20px 0;
+    }
+    .probability-bar {
+        background: linear-gradient(90deg, #ff9999, #ffcc99, #99cc99);
+        height: 100%;
+        border-radius: 4px;
+    }
+    .probability-value {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: bold;
+        z-index: 1;
+    }
+</style> {% endcomment %}
