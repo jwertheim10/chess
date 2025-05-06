@@ -41,7 +41,7 @@ def predict_win_probability(username, game_features, model_dir='chess_apis/ml_mo
             # Fallback to binary prediction
                 probability = float(model.predict(df_processed)[0])
         else:
-             model.predict(df_processed)[0]
+            probability = float(model.predict(df_processed)[0])
         
         return probability
 

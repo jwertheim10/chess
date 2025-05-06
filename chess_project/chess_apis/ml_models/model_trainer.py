@@ -34,7 +34,7 @@ def train_win_prediction_model(games_data, username, model_dir = 'chess_apis/ml_
     # and negatives (losses) as equally valuable. This is true here.
 
     for name, model in model.items():
-        model.fit(X, y)
+        model.fit(X_test, y_test)
         y_predict = model.predict(X_test)
         score = accuracy_score(y_test, y_predict)
         results[name] = {
