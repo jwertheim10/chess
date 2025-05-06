@@ -28,10 +28,18 @@ def predict_win_probability(username, game_features, model_dir='chess_apis/ml_mo
         for col in missing_cols:
              df_processed[col] = 0
 
+        extra_cols = set(df_processed.columns) - set(feature_names)
+        if extra_cols:
+            df_processed = df_processed.drop(columns=extra_cols)
+
         df_processed = df_processed[feature_names]
 
         if hasattr(model, 'predict_proba'):
-             probability = model.predict_proba(df_processed)[0][1]
+            try:
+                probability = model.predict_proba(df_processed)[0][1]
+            except:
+            # Fallback to binary prediction
+                probability = float(model.predict(df_processed)[0])
         else:
              model.predict(df_processed)[0]
         

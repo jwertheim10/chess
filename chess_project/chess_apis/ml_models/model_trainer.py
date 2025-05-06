@@ -33,7 +33,7 @@ def train_win_prediction_model(games_data, username, model_dir = 'chess_apis/ml_
     # I decided to use accuracy as my metric to measure the models as the main weakness is it treats the positive (wins)
     # and negatives (losses) as equally valuable. This is true here.
 
-    for name, model in model:
+    for name, model in model.items():
         model.fit(X, y)
         y_predict = model.predict(X_test)
         score = accuracy_score(y_test, y_predict)
